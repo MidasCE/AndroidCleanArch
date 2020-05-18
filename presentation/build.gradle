@@ -51,6 +51,8 @@ dependencies {
     implementation applicationDependencies.parcelerApi
     implementation applicationDependencies.material
     annotationProcessor applicationDependencies.parceler
+    implementation applicationDependencies.retrofit
+    implementation applicationDependencies.okhttpLoggingInterceptor
 
     implementation applicationDependencies.rxJava
     implementation applicationDependencies.rxAndroid
