@@ -35,7 +35,7 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector, OnMapRea
 
     override fun onMapReady(googleMap: GoogleMap) {
         mapView = googleMap
-        mapView.moveCamera(CameraUpdateFactory.newLatLng(LatLng(0.0, 0.0)));
+        mapView.moveCamera(CameraUpdateFactory.newLatLng(LatLng(0.0, 0.0)))
     }
 
     override fun navigateToPermissionSettings() {
