@@ -18,7 +18,8 @@ import javax.inject.Singleton
         ApplicationModule::class,
         ActivityBindingModule::class,
         DomainModule::class,
-        DataModule::class
+        DataModule::class,
+        FragmentBindingModule::class
     ]
 )
 interface AppComponent {

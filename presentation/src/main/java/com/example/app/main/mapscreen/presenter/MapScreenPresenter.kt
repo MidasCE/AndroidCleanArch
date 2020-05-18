@@ -1,6 +1,6 @@
-package com.example.app.main.presenter
+package com.example.app.main.mapscreen.presenter
 
-interface MainPresenter {
+interface MapScreenPresenter {
 
     fun initPermission()
 

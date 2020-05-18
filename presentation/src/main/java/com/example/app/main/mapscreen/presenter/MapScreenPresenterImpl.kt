@@ -1,15 +1,15 @@
-package com.example.app.main.presenter
+package com.example.app.main.mapscreen.presenter
 
 import com.example.app.core.SchedulerFactory
-import com.example.app.main.view.MainView
+import com.example.app.main.mapscreen.MapScreenView
 import com.example.domain.interactor.PermissionInteractor
 import io.reactivex.disposables.CompositeDisposable
 
-class MainPresenterImpl(
+class MapScreenPresenterImpl(
     private val schedulerFactory: SchedulerFactory,
-    private val view: MainView,
+    private val view: MapScreenView,
     private val permissionInteractor: PermissionInteractor
-) : MainPresenter {
+) : MapScreenPresenter {
 
     private var compositeDisposable = CompositeDisposable()
 
