@@ -41,6 +41,7 @@ dependencies {
     implementation project(':data')
     implementation applicationDependencies.kotlin
     implementation applicationDependencies.appCompat
+    implementation applicationDependencies.googlemaps
     implementation applicationDependencies.core
     implementation applicationDependencies.constraintLayout
     implementation applicationDependencies.recyclerview
