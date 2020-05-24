@@ -7,8 +7,6 @@ interface MainView {
 
     fun navigatePickSongScreen()
 
-    fun showMediaButton()
-
     fun setUpVisualizer(uri: Uri)
 
     fun showMessage(message: String)

@@ -25,7 +25,6 @@ class MainScreenPresenterImpl(
         currentSong = uri
 
         currentSong?.let {
-            view.showMediaButton()
             view.setUpVisualizer(it)
         }
     }

@@ -9,6 +9,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,18 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector {
     private lateinit var pauseButton: Button
     private lateinit var barVisualizer: SoundVisualizerBarView
     private lateinit var player: MediaPlayer
-    private var runnable: Runnable? = null
+
+    private var handler: Handler? = Handler()
+
+    private var runnable = object : Runnable {
+        override fun run() {
+            player.currentPosition
+            barVisualizer.updatePlayerPercent(player.currentPosition / player.duration.toFloat())
+            if (player.isPlaying) {
+                handler?.postDelayed(this, INTERVAL);
+            }
+        }
+    };
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
@@ -51,6 +63,7 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        handler = Handler()
         player = MediaPlayer()
         player.isLooping = false
 
@@ -60,12 +73,12 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector {
         pauseButton = findViewById(R.id.pauseButton)
         playButton.setOnClickListener {
             player.start()
-            runnable?.apply {
-                run()
-            }
+            runnable.run()
+            pickSongButton.visibility = GONE
         }
         pauseButton.setOnClickListener {
             player.pause()
+            pickSongButton.visibility = VISIBLE
         }
         pickSongButton.setOnClickListener {
             presenter.onClickPickSong()
@@ -115,7 +128,7 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector {
         Snackbar.make(findViewById(R.id.rootView), message, Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun showMediaButton() {
+    private fun showMediaButton() {
         playButton.visibility = VISIBLE
         pauseButton.visibility = VISIBLE
     }
@@ -133,21 +146,17 @@ class MainActivity : MainView, AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun setUpVisualizer(uri: Uri) {
+        handler?.removeCallbacks(runnable)
+        player.reset()
         player.setDataSource(this, uri)
 
         player.prepareAsync()
-        runnable = object : Runnable {
-            override fun run() {
-                player.currentPosition
-                barVisualizer.updatePlayerPercent(player.currentPosition / player.duration.toFloat())
-
-                if (player.isPlaying) {
-                    Handler().postDelayed(this, INTERVAL)
-                }
-            }
+        player.setOnPreparedListener { player ->
+            showMediaButton()
+            pickSongButton.visibility = GONE
+            barVisualizer.updateVisualizer(uri)
+            barVisualizer.updatePlayerPercent(0F)
         }
-
-        barVisualizer.updateVisualizer(uri)
     }
 
     override fun onStop() {
