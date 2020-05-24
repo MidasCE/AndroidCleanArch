@@ -10,9 +10,9 @@ class AppPermissionProviderImpl(private val context: Context) :
     AppPermissionProvider {
 
     private val requiredPermissions =
-        listOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        listOf(Manifest.permission.RECORD_AUDIO)
 
-    override fun isPermissionGranted(): Boolean {
+    override fun isRecordAudioPermissionGranted(): Boolean {
         for (permission in requiredPermissions) {
             if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED)
                 return false
