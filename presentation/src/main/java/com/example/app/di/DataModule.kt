@@ -18,13 +18,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideSomeAPI(retrofit: Retrofit): StarwarAPI =
+    fun provideStarwarAPI(retrofit: Retrofit): StarwarAPI =
         retrofit.create(StarwarAPI::class.java)
 
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
-        .baseUrl("https://swapi.com/")
+        .baseUrl("https://swapi.dev/api/")
         .client(OkHttpClient.Builder().build())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

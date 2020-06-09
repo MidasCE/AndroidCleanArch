@@ -4,8 +4,8 @@ import com.example.app.main.view.model.CharacterItemViewEntity
 
 interface CharacterListScreenPresenter {
 
-    fun fetchCharacterList() : List<CharacterItemViewEntity>
+    fun fetchCharacterList()
 
-    fun searchCharacters(title : String) : List<CharacterItemViewEntity>
+    fun searchCharacters(title : String)
 
 }
