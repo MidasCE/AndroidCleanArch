@@ -1,9 +1,6 @@
 package com.example.app.di
 
-import android.content.Context
-import com.example.data.api.SomeAPI
-import repository.permission.AppPermissionProvider
-import com.example.data.permission.AppPermissionProviderImpl
+import com.example.data.api.StarwarAPI
 import com.example.data.serializer.DateDeserializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -21,19 +18,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideLocationProvider(context: Context): AppPermissionProvider {
-        return AppPermissionProviderImpl(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSomeAPI(retrofit: Retrofit): SomeAPI =
-        retrofit.create(SomeAPI::class.java)
+    fun provideSomeAPI(retrofit: Retrofit): StarwarAPI =
+        retrofit.create(StarwarAPI::class.java)
 
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
-        .baseUrl("https://somurl.com/")
+        .baseUrl("https://swapi.com/")
         .client(OkHttpClient.Builder().build())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

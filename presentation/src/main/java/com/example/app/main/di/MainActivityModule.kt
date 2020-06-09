@@ -1,7 +1,7 @@
 package com.example.app.main.di
 
 import com.example.app.main.view.MainActivity
-import com.example.app.main.view.MainView
+import com.example.app.main.view.CharacterListScreenView
 import dagger.Module
 import dagger.Provides
 
@@ -9,5 +9,5 @@ import dagger.Provides
 class MainActivityModule {
 
     @Provides
-    fun provideMainView(mainActivity: MainActivity): MainView = mainActivity
+    fun provideMainView(mainActivity: MainActivity): CharacterListScreenView = mainActivity
 }
