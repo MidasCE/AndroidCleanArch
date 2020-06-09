@@ -9,4 +9,7 @@ interface StarwarAPI {
 
     @GET("people/")
     fun searchCharacters(@Query("search") title: String): Single<CharactersResponse>
+
+    @GET("people/")
+    fun fetchCharacters(@Query("page") page: Int): Single<CharactersResponse>
 }

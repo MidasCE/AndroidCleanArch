@@ -10,7 +10,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/characterUrl"
+        android:id="@+id/characterImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,8 @@
         android:layout_marginStart="16dp"
         android:textColor="@color/colorBlackPrimary"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/characterUrl"
-        app:layout_constraintStart_toEndOf="@+id/characterUrl"
+        app:layout_constraintBottom_toBottomOf="@+id/characterImageView"
+        app:layout_constraintStart_toEndOf="@+id/characterImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Boba Fett" />
 

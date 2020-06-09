@@ -16,7 +16,10 @@ class CharactersRepositoryImpl(private val starwarAPI: StarwarAPI) :
             }
         }
 
-    override fun fetchCharacters(page: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun fetchCharacters(page: Int): Single<List<Character>> =
+        starwarAPI.fetchCharacters(page).map { response ->
+            response.results.map { dto ->
+                dto.toDomain()
+            }
+        }
 }

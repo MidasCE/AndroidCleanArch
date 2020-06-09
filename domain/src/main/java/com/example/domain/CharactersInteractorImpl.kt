@@ -9,4 +9,7 @@ class CharactersInteractorImpl(val charactersRepository: CharactersRepository) :
     override fun searchCharacters(title: String): Single<List<Character>> =
         charactersRepository.searchCharacters(title)
 
+    override fun fetchCharacters(page: Int): Single<List<Character>> =
+        charactersRepository.fetchCharacters(page)
+
 }

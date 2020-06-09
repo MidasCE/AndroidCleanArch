@@ -13,9 +13,26 @@ class CharacterListScreenPresenterImpl(
     private val charactersInteractor: CharactersInteractor
 ) : CharacterListScreenPresenter {
 
+    private var currentPage = 1
+
     private var compositeDisposable = CompositeDisposable()
 
     override fun fetchCharacterList() {
+        compositeDisposable += charactersInteractor.fetchCharacters(currentPage)
+            .subscribeOn(schedulerFactory.io())
+            .observeOn(schedulerFactory.main())
+            .map { characters ->
+                characters.map { character ->
+                    CharacterItemViewEntity(character.name, character.imageUrl)
+                }
+            }
+            .subscribe({ characters ->
+                view.hideLoading()
+                view.updateCharacterList(characters)
+            }, {
+                view.hideLoading()
+                view.showError()
+            })
     }
 
     override fun searchCharacters(title: String) {
@@ -24,7 +41,7 @@ class CharacterListScreenPresenterImpl(
             .observeOn(schedulerFactory.main())
             .map { characters ->
                 characters.map { character ->
-                    CharacterItemViewEntity(character.name, character.url)
+                    CharacterItemViewEntity(character.name, character.imageUrl)
                 }
             }
             .subscribe({ characters ->

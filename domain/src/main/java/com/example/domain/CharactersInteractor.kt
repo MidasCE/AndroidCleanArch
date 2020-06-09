@@ -7,4 +7,6 @@ interface CharactersInteractor {
 
     fun searchCharacters(title: String) : Single<List<Character>>
 
+    fun fetchCharacters(page: Int) : Single<List<Character>>
+
 }

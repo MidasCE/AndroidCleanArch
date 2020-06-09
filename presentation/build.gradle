@@ -53,6 +53,8 @@ dependencies {
     annotationProcessor applicationDependencies.parceler
     implementation applicationDependencies.retrofit
     implementation applicationDependencies.okhttpLoggingInterceptor
+    implementation applicationDependencies.glide
+    annotationProcessor applicationDependencies.glideCompiler
 
     implementation applicationDependencies.rxJava
     implementation applicationDependencies.rxAndroid

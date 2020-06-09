@@ -1,7 +1,10 @@
 package com.example.app.main.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +33,7 @@ class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInj
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var loadingView: ProgressBar
+    private lateinit var searchEditText: EditText
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
@@ -37,14 +41,41 @@ class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInj
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initView()
     }
 
     private fun initView() {
         recyclerView = findViewById(R.id.recyclerView)
         loadingView = findViewById(R.id.progressBar)
+        searchEditText = findViewById(R.id.searchInput)
+        searchEditText.addTextChangedListener(object : TextWatcher {
+
+            @Synchronized
+            override fun afterTextChanged(e: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(c: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            @Synchronized
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                charSequence?.let { chars ->
+                    if (chars.isEmpty()) {
+                        presenter.fetchCharacterList()
+                    } else {
+                        presenter.searchCharacters(chars.toString())
+                    }
+                }
+            }
+        })
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+
+        presenter.fetchCharacterList()
     }
 
     override fun updateCharacterList(list: List<CharacterItemViewEntity>) {
