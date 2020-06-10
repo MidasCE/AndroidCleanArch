@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.app.R
-import com.example.app.main.view.model.CharacterItemViewEntity
+import com.example.app.main.view.model.CharacterViewEntity
 import com.example.app.main.view.presenter.CharacterListScreenPresenter
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
@@ -78,7 +78,7 @@ class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInj
         presenter.fetchCharacterList()
     }
 
-    override fun updateCharacterList(list: List<CharacterItemViewEntity>) {
+    override fun updateCharacterList(list: List<CharacterViewEntity>) {
         recyclerView.visibility = View.VISIBLE
         adapter.updateCharacterItem(list)
         adapter.notifyDataSetChanged()

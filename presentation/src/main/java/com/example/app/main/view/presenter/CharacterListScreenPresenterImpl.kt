@@ -2,7 +2,7 @@ package com.example.app.main.view.presenter
 
 import com.example.app.core.SchedulerFactory
 import com.example.app.main.view.CharacterListScreenView
-import com.example.app.main.view.model.CharacterItemViewEntity
+import com.example.app.main.view.model.CharacterViewEntity
 import com.example.domain.CharactersInteractor
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -23,7 +23,7 @@ class CharacterListScreenPresenterImpl(
             .observeOn(schedulerFactory.main())
             .map { characters ->
                 characters.map { character ->
-                    CharacterItemViewEntity(character.name, character.imageUrl)
+                    CharacterViewEntity(character.name, character.imageUrl)
                 }
             }
             .subscribe({ characters ->
@@ -41,7 +41,7 @@ class CharacterListScreenPresenterImpl(
             .observeOn(schedulerFactory.main())
             .map { characters ->
                 characters.map { character ->
-                    CharacterItemViewEntity(character.name, character.imageUrl)
+                    CharacterViewEntity(character.name, character.imageUrl)
                 }
             }
             .subscribe({ characters ->

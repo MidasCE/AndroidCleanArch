@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.app.R
-import com.example.app.main.view.model.CharacterItemViewEntity
+import com.example.app.main.view.model.CharacterViewEntity
 
 class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHolder>() {
     lateinit var context: Context
 
-    var characterItemList: MutableList<CharacterItemViewEntity> = mutableListOf()
+    var characterList: MutableList<CharacterViewEntity> = mutableListOf()
 
-    fun updateCharacterItem(list: List<CharacterItemViewEntity>) {
-        characterItemList.clear()
-        characterItemList.addAll(list)
+    fun updateCharacterItem(list: List<CharacterViewEntity>) {
+        characterList.clear()
+        characterList.addAll(list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,10 +33,10 @@ class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHold
         )
     }
 
-    override fun getItemCount(): Int = characterItemList.size
+    override fun getItemCount(): Int = characterList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindViewHolder(context, characterItemList[position])
+        holder.bindViewHolder(context, characterList[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,11 +45,11 @@ class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHold
         private val imageView: ImageView =
             itemView.findViewById(R.id.characterImageView)
 
-        fun bindViewHolder(context: Context, viewEntity: CharacterItemViewEntity) {
+        fun bindViewHolder(context: Context, viewEntity: CharacterViewEntity) {
             initView(context, viewEntity)
         }
 
-        private fun initView(context: Context, viewEntity: CharacterItemViewEntity) {
+        private fun initView(context: Context, viewEntity: CharacterViewEntity) {
             characterTitleTextView.text = viewEntity.title
         }
     }
