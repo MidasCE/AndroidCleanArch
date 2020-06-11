@@ -1,5 +1,6 @@
 package com.example.app.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.app.R
+import com.example.app.character.details.view.CharacterDetailsActivity
+import com.example.app.character.details.view.CharacterDetailsActivity.Companion.CHARACTERS_KEY
 import com.example.app.main.view.model.CharacterViewEntity
 import com.example.app.main.view.presenter.CharacterListScreenPresenter
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +23,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInjector {
+class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInjector, CharacterItemAdapter.CharacterItemInteractionListener {
 
     @Inject
     lateinit var presenter: CharacterListScreenPresenter
@@ -95,4 +98,11 @@ class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInj
     override fun showError() {
         Snackbar.make( findViewById(android.R.id.content), "There is an error. Please try again later", Snackbar.LENGTH_LONG).show()
     }
+
+    override fun onCharacterItemClick(characterViewEntity: CharacterViewEntity) {
+        val intent = Intent(this, CharacterDetailsActivity::class.java)
+        intent.putExtra(CHARACTERS_KEY, characterViewEntity)
+        startActivity(intent)
+    }
+
 }

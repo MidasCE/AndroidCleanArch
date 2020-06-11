@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app.R
+import com.example.app.character.details.view.presenter.CharacterDetailsScreenPresenter
 import com.example.app.main.view.model.CharacterViewEntity
-import com.example.app.main.view.presenter.CharacterListScreenPresenter
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
+
 class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAndroidInjector {
 
     @Inject
-    lateinit var presenter: CharacterListScreenPresenter
+    lateinit var presenter: CharacterDetailsScreenPresenter
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -35,10 +36,15 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chars_details)
-        initView()
+
+        val viewEntity = intent.extras?.get(CHARACTERS_KEY)
+        if (viewEntity == null || !viewEntity is CharacterViewEntity) {
+            finish()
+        }
+        initView(viewEntity as CharacterViewEntity)
     }
 
-    private fun initView() {
+    private fun initView(viewEntity: CharacterViewEntity) {
         nameTextView = findViewById(R.id.nameTextView)
         heightTextView = findViewById(R.id.heightTextView)
         massTextView = findViewById(R.id.massTextView)
@@ -47,10 +53,10 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
         eyeTextView = findViewById(R.id.eyeTextView)
         birthDayTextView = findViewById(R.id.birthDayTextView)
         genderTextView = findViewById(R.id.genderTextView)
-        presenter.fetchCharacterList()
+        updateCharacterDetail(viewEntity)
     }
 
-    fun updateCharacterDetail(entity: CharacterViewEntity) {
+    private fun updateCharacterDetail(entity: CharacterViewEntity) {
         entity.apply {
             nameTextView.text = title
             heightTextView.text = height
@@ -62,6 +68,10 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
             genderTextView.text = gender
 
         }
+    }
+
+    companion object {
+        const val CHARACTERS_KEY = "CHARACTERS_KEY"
     }
 
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
 import com.example.app.main.view.model.CharacterViewEntity
 
-class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHolder>() {
+class CharacterItemAdapter(private val characterItemInteractionListener: CharacterItemInteractionListener)  : RecyclerView.Adapter<CharacterItemAdapter.ViewHolder>() {
     lateinit var context: Context
 
     var characterList: MutableList<CharacterViewEntity> = mutableListOf()
@@ -37,6 +37,9 @@ class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHold
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindViewHolder(context, characterList[position])
+        holder.itemView.setOnClickListener {
+            characterItemInteractionListener.onCharacterItemClick(characterList[position])
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -54,4 +57,7 @@ class CharacterItemAdapter  : RecyclerView.Adapter<CharacterItemAdapter.ViewHold
         }
     }
 
+    interface CharacterItemInteractionListener {
+        fun onCharacterItemClick(characterViewEntity : CharacterViewEntity)
+    }
 }
