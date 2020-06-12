@@ -28,10 +28,10 @@ class CharactersInteractorImplTest {
     fun `searchCharacters`() {
         val character = Character(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
+            "height",
+            "mass",
+            "hairColor",
+            "skinColor",
             "eyeColor",
             "birthYear",
             "gender",
@@ -47,10 +47,10 @@ class CharactersInteractorImplTest {
     fun `fetchCharacters`() {
         val character = Character(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
+            "height",
+            "mass",
+            "hairColor",
+            "skinColor",
             "eyeColor",
             "birthYear",
             "gender",
