@@ -23,13 +23,14 @@ class CharacterListScreenPresenterImpl(
             .subscribeOn(schedulerFactory.io())
             .observeOn(schedulerFactory.main())
             .map { characters ->
+                currentPage++
                 characters.map { character ->
                     character.toViewEntity()
                 }
             }
             .subscribe({ characters ->
                 view.hideLoading()
-                view.updateCharacterList(characters)
+                view.addCharacterList(characters)
             }, {
                 view.hideLoading()
                 view.showError()

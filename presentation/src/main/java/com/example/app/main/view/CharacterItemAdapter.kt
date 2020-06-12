@@ -15,6 +15,10 @@ class CharacterItemAdapter(private val characterItemInteractionListener: Charact
 
     var characterList: MutableList<CharacterViewEntity> = mutableListOf()
 
+    fun addCharacterItem(list: List<CharacterViewEntity>) {
+        characterList.addAll(list)
+    }
+
     fun updateCharacterItem(list: List<CharacterViewEntity>) {
         characterList.clear()
         characterList.addAll(list)

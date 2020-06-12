@@ -23,6 +23,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
+
 class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInjector, CharacterItemAdapter.CharacterItemInteractionListener {
 
     @Inject
@@ -78,11 +79,23 @@ class MainActivity : CharacterListScreenView, AppCompatActivity(), HasAndroidInj
         recyclerView.adapter = adapter
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && searchEditText.text.isEmpty()) {
+                    presenter.fetchCharacterList()
+                }
+            }
+        })
         presenter.fetchCharacterList()
     }
 
+    override fun addCharacterList(list: List<CharacterViewEntity>) {
+        adapter.addCharacterItem(list)
+        adapter.notifyDataSetChanged()
+    }
+
     override fun updateCharacterList(list: List<CharacterViewEntity>) {
-        recyclerView.visibility = View.VISIBLE
         adapter.updateCharacterItem(list)
         adapter.notifyDataSetChanged()
     }
