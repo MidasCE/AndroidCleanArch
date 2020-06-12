@@ -1,7 +1,16 @@
 package com.example.app.character.details.view.presenter
 
-class CharacterDetailsScreenPresenterImpl() : CharacterDetailsScreenPresenter {
-    override fun updateCharacterDetails() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+import com.example.app.main.view.model.CharacterViewEntity
+
+class CharacterDetailsScreenPresenterImpl : CharacterDetailsScreenPresenter {
+
+    @Volatile
+    var characterViewEntity: CharacterViewEntity? = null
+
+    @Synchronized
+    override fun updateCharacterDetails(characterViewEntity: CharacterViewEntity) {
+        this.characterViewEntity = characterViewEntity
     }
+
+    override fun currentCharacterViewEntity(): CharacterViewEntity? = characterViewEntity
 }

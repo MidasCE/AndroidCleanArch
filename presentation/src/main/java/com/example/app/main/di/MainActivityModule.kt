@@ -30,6 +30,7 @@ class MainActivityModule {
 
     @Provides
     fun provideCharacterItemAdapter(
+        mainActivity: MainActivity
     ): CharacterItemAdapter =
-        CharacterItemAdapter()
+        CharacterItemAdapter(mainActivity)
 }

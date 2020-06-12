@@ -38,7 +38,7 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
         setContentView(R.layout.activity_chars_details)
 
         val viewEntity = intent.extras?.get(CHARACTERS_KEY)
-        if (viewEntity == null || !viewEntity is CharacterViewEntity) {
+        if (viewEntity == null || viewEntity !is CharacterViewEntity) {
             finish()
         }
         initView(viewEntity as CharacterViewEntity)
@@ -67,6 +67,23 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
             birthDayTextView.text = birthDay
             genderTextView.text = gender
 
+        }
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        presenter.currentCharacterViewEntity()?.let { viewEntity ->
+            savedInstanceState.putParcelable(CHARACTERS_KEY, viewEntity)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val viewEntity = savedInstanceState.getParcelable<CharacterViewEntity>(CHARACTERS_KEY)
+        if (viewEntity != null) {
+            updateCharacterDetail(viewEntity)
+        } else {
+            finish()
         }
     }
 

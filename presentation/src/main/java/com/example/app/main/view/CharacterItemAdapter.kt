@@ -45,8 +45,6 @@ class CharacterItemAdapter(private val characterItemInteractionListener: Charact
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val characterTitleTextView: TextView =
             itemView.findViewById(R.id.characterTitleTextView)
-        private val imageView: ImageView =
-            itemView.findViewById(R.id.characterImageView)
 
         fun bindViewHolder(context: Context, viewEntity: CharacterViewEntity) {
             initView(context, viewEntity)
