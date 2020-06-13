@@ -1,8 +1,8 @@
 package com.example.data.repository
 
 import com.example.data.api.StarwarAPI
-import com.example.data.entity.CharacterDto
-import com.example.data.entity.CharactersResponse
+import com.example.data.response.CharacterDto
+import com.example.data.response.CharactersResponse
 import com.example.domain.model.Character
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -31,25 +31,18 @@ class CharactersRepositoryImplTest {
     fun `Test searchCharacters`() {
         val characterDto = CharacterDto(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
-            "eyeColor",
-            "birthYear",
-            "gender",
-            "url")
+            "height",
+            listOf("url"),
+            listOf("url"),
+            "url"
+        )
 
         val character = Character(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
-            "eyeColor",
-            "birthYear",
-            "gender",
-        "url")
+            "height",
+            listOf("url"),
+            listOf("url"),
+            "url")
         val response = CharactersResponse(listOf(characterDto))
         val testObserver = TestObserver<List<Character>>()
         whenever(api.searchCharacters("name")).thenReturn(
@@ -66,24 +59,17 @@ class CharactersRepositoryImplTest {
     fun `Test fetchCharacters`() {
         val characterDto = CharacterDto(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
-            "eyeColor",
-            "birthYear",
-            "gender",
-            "url")
+            "height",
+            listOf("url"),
+            listOf("url"),
+            "url"
+        )
 
         val character = Character(
             "name",
-            "height '",
-            "mass'",
-            "hairColor'",
-            "skinColor'",
-            "eyeColor",
-            "birthYear",
-            "gender",
+            "height",
+            listOf("url"),
+            listOf("url"),
             "url")
         val response = CharactersResponse(listOf(characterDto))
         val testObserver = TestObserver<List<Character>>()

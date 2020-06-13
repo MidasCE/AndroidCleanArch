@@ -3,7 +3,13 @@ package com.example.app.character.details.view
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
+import com.example.app.character.details.view.adapter.CharacterFilmItemAdapter
+import com.example.app.character.details.view.adapter.CharacterHomeWorldItemAdapter
+import com.example.app.character.details.view.model.CharacterHomeWorldViewEntity
+import com.example.app.character.details.view.model.FilmViewEntity
 import com.example.app.character.details.view.presenter.CharacterDetailsScreenPresenter
 import com.example.app.main.view.model.CharacterViewEntity
 import dagger.android.AndroidInjection
@@ -19,16 +25,18 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
     lateinit var presenter: CharacterDetailsScreenPresenter
 
     @Inject
+    lateinit var homeWorldItemAdapter: CharacterHomeWorldItemAdapter
+
+    @Inject
+    lateinit var filmAdapter: CharacterFilmItemAdapter
+
+    @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     private lateinit var nameTextView: TextView
     private lateinit var heightTextView: TextView
-    private lateinit var massTextView: TextView
-    private lateinit var hairTextView: TextView
-    private lateinit var skinTextView: TextView
-    private lateinit var eyeTextView: TextView
-    private lateinit var birthDayTextView: TextView
-    private lateinit var genderTextView: TextView
+    private lateinit var homeWorldrecyclerView: RecyclerView
+    private lateinit var filmRecyclerView: RecyclerView
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
@@ -47,12 +55,17 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
     private fun initView(viewEntity: CharacterViewEntity) {
         nameTextView = findViewById(R.id.nameTextView)
         heightTextView = findViewById(R.id.heightTextView)
-        massTextView = findViewById(R.id.massTextView)
-        hairTextView = findViewById(R.id.hairTextView)
-        skinTextView = findViewById(R.id.skinTextView)
-        eyeTextView = findViewById(R.id.eyeTextView)
-        birthDayTextView = findViewById(R.id.birthDayTextView)
-        genderTextView = findViewById(R.id.genderTextView)
+        homeWorldrecyclerView = findViewById(R.id.homeWorldRecyclerView)
+
+        homeWorldrecyclerView.layoutManager = LinearLayoutManager(this)
+        homeWorldrecyclerView.adapter = homeWorldItemAdapter
+        homeWorldrecyclerView.isNestedScrollingEnabled = false;
+
+        filmRecyclerView = findViewById(R.id.filmRecyclerView)
+
+        filmRecyclerView.layoutManager = LinearLayoutManager(this)
+        filmRecyclerView.adapter = filmAdapter
+        filmRecyclerView.isNestedScrollingEnabled = false;
         updateCharacterDetail(viewEntity)
     }
 
@@ -60,14 +73,8 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
         entity.apply {
             nameTextView.text = title
             heightTextView.text = height
-            massTextView.text = mass
-            hairTextView.text = hairColor
-            skinTextView.text = skinColor
-            eyeTextView.text = eyeColor
-            birthDayTextView.text = birthDay
-            genderTextView.text = gender
-
         }
+        presenter.updateCharacterDetails(entity)
     }
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
@@ -91,4 +98,13 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
         const val CHARACTERS_KEY = "CHARACTERS_KEY"
     }
 
+    override fun updateCharacterBackgroundDetails(viewEntityList: List<CharacterHomeWorldViewEntity>) {
+        homeWorldItemAdapter.updateHomeWorldItem(viewEntityList)
+        homeWorldItemAdapter.notifyDataSetChanged()
+    }
+
+    override fun updateCharacterFilmDetails(filmViewEntityList: List<FilmViewEntity>) {
+        filmAdapter.updateCharacterItem(filmViewEntityList)
+        filmAdapter.notifyDataSetChanged()
+    }
 }

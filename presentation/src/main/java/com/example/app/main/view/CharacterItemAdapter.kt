@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
 import com.example.app.main.view.model.CharacterViewEntity
 
-class CharacterItemAdapter(private val characterItemInteractionListener: CharacterItemInteractionListener)  : RecyclerView.Adapter<CharacterItemAdapter.ViewHolder>() {
+class CharacterItemAdapter(private val characterItemInteractionListener: CharacterItemInteractionListener) :
+    RecyclerView.Adapter<CharacterItemAdapter.ViewHolder>() {
     lateinit var context: Context
 
     var characterList: MutableList<CharacterViewEntity> = mutableListOf()
@@ -60,6 +61,6 @@ class CharacterItemAdapter(private val characterItemInteractionListener: Charact
     }
 
     interface CharacterItemInteractionListener {
-        fun onCharacterItemClick(characterViewEntity : CharacterViewEntity)
+        fun onCharacterItemClick(characterViewEntity: CharacterViewEntity)
     }
 }
