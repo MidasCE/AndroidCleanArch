@@ -4,8 +4,9 @@ import com.example.app.main.view.model.CharacterViewEntity
 
 class CharacterDetailsScreenPresenterImpl : CharacterDetailsScreenPresenter {
 
+    //TODO currently, now only using memory cache to saved selected characters details.
     @Volatile
-    var characterViewEntity: CharacterViewEntity? = null
+    private var characterViewEntity: CharacterViewEntity? = null
 
     @Synchronized
     override fun updateCharacterDetails(characterViewEntity: CharacterViewEntity) {

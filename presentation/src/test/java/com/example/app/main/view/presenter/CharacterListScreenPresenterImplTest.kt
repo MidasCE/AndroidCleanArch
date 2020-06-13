@@ -27,7 +27,7 @@ class CharacterListScreenPresenterImplTest {
     @Mock
     lateinit var charactersInteractor: CharactersInteractor
 
-    private lateinit var mapScreenPresenterImpl: CharacterListScreenPresenterImpl
+    private lateinit var presenter: CharacterListScreenPresenterImpl
 
     private lateinit var ioScheduler: TestScheduler
 
@@ -41,7 +41,7 @@ class CharacterListScreenPresenterImplTest {
         whenever(schedulerFactory.io()).thenReturn(ioScheduler)
         whenever(schedulerFactory.main()).thenReturn(mainScheduler)
 
-        mapScreenPresenterImpl = CharacterListScreenPresenterImpl(schedulerFactory, view, charactersInteractor)
+        presenter = CharacterListScreenPresenterImpl(schedulerFactory, view, charactersInteractor)
     }
 
     @Test
@@ -68,6 +68,8 @@ class CharacterListScreenPresenterImplTest {
             "gender")
         whenever(charactersInteractor.searchCharacters("name")).thenReturn(Single.just(listOf(character)))
 
+        presenter.searchCharacters("name")
+
         ioScheduler.triggerActions()
         mainScheduler.triggerActions()
 
@@ -78,6 +80,8 @@ class CharacterListScreenPresenterImplTest {
     @Test
     fun `Test searchCharacters return error`() {
         whenever(charactersInteractor.searchCharacters("name")).thenReturn(Single.error(Throwable()))
+
+        presenter.searchCharacters("name")
 
         ioScheduler.triggerActions()
         mainScheduler.triggerActions()
@@ -110,6 +114,8 @@ class CharacterListScreenPresenterImplTest {
             "gender")
         whenever(charactersInteractor.fetchCharacters(1)).thenReturn(Single.just(listOf(character)))
 
+        presenter.fetchCharacterList()
+
         ioScheduler.triggerActions()
         mainScheduler.triggerActions()
 
@@ -120,6 +126,8 @@ class CharacterListScreenPresenterImplTest {
     @Test
     fun `Test fetchCharacters return error`() {
         whenever(charactersInteractor.fetchCharacters(1)).thenReturn(Single.error(Throwable()))
+
+        presenter.fetchCharacterList()
 
         ioScheduler.triggerActions()
         mainScheduler.triggerActions()
