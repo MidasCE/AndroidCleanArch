@@ -19,7 +19,6 @@ class CharacterDetailsScreenPresenterImpl(
     private val charactersInteractor: CharactersInteractor
 ) : CharacterDetailsScreenPresenter {
 
-    //TODO currently, now only using memory cache to saved selected characters details.
     @Volatile
     private var characterViewEntity: CharacterViewEntity? = null
 
@@ -37,7 +36,7 @@ class CharacterDetailsScreenPresenterImpl(
     private fun updateSpeciesDetail(speciesUrl: List<String>) {
         compositeDisposable +=
             speciesUrl.toObservable().flatMap { url ->
-                charactersInteractor.getSpecies(url).toObservable()
+                charactersInteractor.getSpecie(url).toObservable()
             }.switchMap { specie ->
                 specie.homeWorldUrl?.let { homeWorldUrl ->
                     charactersInteractor.getHomeWorld(homeWorldUrl).map { homeWorld ->

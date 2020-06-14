@@ -1,9 +1,11 @@
 package com.example.data.repository
 
 import com.example.data.api.StarwarAPI
-import com.example.data.response.CharacterDto
-import com.example.data.response.CharactersResponse
+import com.example.data.response.*
 import com.example.domain.model.Character
+import com.example.domain.model.Film
+import com.example.domain.model.HomeWorld
+import com.example.domain.model.Specie
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
@@ -32,6 +34,7 @@ class CharactersRepositoryImplTest {
         val characterDto = CharacterDto(
             "name",
             "height",
+            "birthYear",
             listOf("url"),
             listOf("url"),
             "url"
@@ -40,6 +43,7 @@ class CharactersRepositoryImplTest {
         val character = Character(
             "name",
             "height",
+            "birthYear",
             listOf("url"),
             listOf("url"),
             "url")
@@ -60,6 +64,7 @@ class CharactersRepositoryImplTest {
         val characterDto = CharacterDto(
             "name",
             "height",
+            "birthYear",
             listOf("url"),
             listOf("url"),
             "url"
@@ -68,6 +73,7 @@ class CharactersRepositoryImplTest {
         val character = Character(
             "name",
             "height",
+            "birthYear",
             listOf("url"),
             listOf("url"),
             "url")
@@ -83,6 +89,75 @@ class CharactersRepositoryImplTest {
         verify(api).fetchCharacters(1)
     }
 
+    @Test
+    fun `Test getHomeWorld`() {
+        val response = HomeWorldResponse(
+            "name",
+            "population"
+        )
 
+        val homeWorld = HomeWorld(
+            "name",
+            "population"
+        )
+
+        val testObserver = TestObserver<HomeWorld>()
+        whenever(api.getHomeWorld("url")).thenReturn(
+            Single.just(response))
+
+        charactersRepositoryImpl.getHomeWorld("url").subscribe(testObserver)
+
+        testObserver.awaitTerminalEvent()
+        testObserver.assertValue(homeWorld)
+        verify(api).getHomeWorld("url")
+    }
+
+    @Test
+    fun `Test getSpecies`() {
+        val response = SpecieResponse(
+            "name",
+            "homeWorldUrl",
+            "population"
+        )
+
+        val specie = Specie(
+            "name",
+            "homeWorldUrl",
+            "population"
+        )
+
+        val testObserver = TestObserver<Specie>()
+        whenever(api.getSpecies("url")).thenReturn(
+            Single.just(response))
+
+        charactersRepositoryImpl.getSpecie("url").subscribe(testObserver)
+
+        testObserver.awaitTerminalEvent()
+        testObserver.assertValue(specie)
+        verify(api).getSpecies("url")
+    }
+
+    @Test
+    fun `Test film`() {
+        val response = FilmResponse(
+            "name",
+            "crawl"
+        )
+
+        val film = Film(
+            "name",
+            "crawl"
+        )
+
+        val testObserver = TestObserver<Film>()
+        whenever(api.getCharacterFilms("url")).thenReturn(
+            Single.just(response))
+
+        charactersRepositoryImpl.getCharacterFilm("url").subscribe(testObserver)
+
+        testObserver.awaitTerminalEvent()
+        testObserver.assertValue(film)
+        verify(api).getCharacterFilms("url")
+    }
 
 }

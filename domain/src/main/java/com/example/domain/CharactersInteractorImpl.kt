@@ -19,9 +19,9 @@ class CharactersInteractorImpl(private val charactersRepository: CharactersRepos
     override fun getHomeWorld(url: String): Single<HomeWorld> =
         charactersRepository.getHomeWorld(url)
 
-    override fun getSpecies(url: String): Single<Specie> =
-        charactersRepository.getSpecies(url)
+    override fun getSpecie(url: String): Single<Specie> =
+        charactersRepository.getSpecie(url)
 
     override fun getCharacterFilm(url: String): Single<Film> =
-        charactersRepository.getCharacterFilms(url)
+        charactersRepository.getCharacterFilm(url)
 }

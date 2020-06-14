@@ -2,6 +2,9 @@ package com.example.domain
 
 
 import com.example.domain.model.Character
+import com.example.domain.model.Film
+import com.example.domain.model.HomeWorld
+import com.example.domain.model.Specie
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
 import org.junit.Before
@@ -28,14 +31,12 @@ class CharactersInteractorImplTest {
     fun `searchCharacters`() {
         val character = Character(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender",
-            "url")
+            "height",
+            emptyList(),
+            emptyList(),
+            "url"
+        )
 
         whenever(repository.searchCharacters("name")).thenReturn(Single.just(listOf(character)))
 
@@ -47,14 +48,12 @@ class CharactersInteractorImplTest {
     fun `fetchCharacters`() {
         val character = Character(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender",
-            "url")
+            "height",
+            emptyList(),
+            emptyList(),
+            "url"
+        )
 
         whenever(repository.fetchCharacters(1)).thenReturn(Single.just(listOf(character)))
 
@@ -62,4 +61,42 @@ class CharactersInteractorImplTest {
             .assertValue(listOf(character))
     }
 
+    @Test
+    fun `Test getHomeWorld`() {
+        val homeWorld = HomeWorld(
+            "name",
+            "population"
+        )
+
+        whenever(repository.getHomeWorld("url")).thenReturn(Single.just(homeWorld))
+
+        charactersInteractor.getHomeWorld("url").test()
+            .assertValue(homeWorld)
+    }
+
+    @Test
+    fun `Test getSpecies`() {
+        val specie = Specie(
+            "name",
+            "homeWorldUrl",
+            "population"
+        )
+        whenever(repository.getSpecie("url")).thenReturn(Single.just(specie))
+
+        charactersInteractor.getSpecie("url").test()
+            .assertValue(specie)
+    }
+
+    @Test
+    fun `Test film`() {
+        val film = Film(
+            "name",
+            "crawl"
+        )
+        whenever(repository.getCharacterFilm("url")).thenReturn(Single.just(film))
+
+        charactersInteractor.getCharacterFilm("url").test()
+            .assertValue(film)
+
+    }
 }

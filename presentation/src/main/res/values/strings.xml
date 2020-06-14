@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">App</string>
+    <string name="character_birth_year">Birth Year: %s</string>
+    <string name="character_height">Height: %s cm , %s feet/inches</string>
+    <string name="character_home_world_species_title">Species: %s</string>
+    <string name="character_home_world_language">Language: %s</string>
+    <string name="character_home_world_title">Home World: %s</string>
+    <string name="character_home_world_population">Population: %s</string>
+    <string name="character_movie_title">Movie: %s</string>
 </resources>

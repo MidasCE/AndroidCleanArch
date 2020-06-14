@@ -10,11 +10,12 @@ data class CharactersResponse(
 data class CharacterDto(
     @SerializedName("name") val name: String,
     @SerializedName("height") val height: String,
+    @SerializedName("birth_year") val birthYear: String,
     @SerializedName("films") val filmsUrl: List<String>,
     @SerializedName("species") val speciesUrl: List<String>,
     @SerializedName("url") val url: String
 )
 
 fun CharacterDto.toDomain(): Character =
-    Character(name, height, filmsUrl, speciesUrl, url)
+    Character(name, birthYear, height, filmsUrl, speciesUrl, url)
 

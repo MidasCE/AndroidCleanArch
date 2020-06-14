@@ -14,7 +14,7 @@ interface CharactersRepository {
 
     fun getHomeWorld(url: String): Single<HomeWorld>
 
-    fun getSpecies(url: String): Single<Specie>
+    fun getSpecie(url: String): Single<Specie>
 
-    fun getCharacterFilms(url: String): Single<Film>
+    fun getCharacterFilm(url: String): Single<Film>
 }

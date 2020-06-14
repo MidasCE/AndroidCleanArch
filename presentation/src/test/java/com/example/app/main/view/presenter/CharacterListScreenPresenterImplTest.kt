@@ -48,24 +48,21 @@ class CharacterListScreenPresenterImplTest {
     fun `Test searchCharacters`() {
         val character = Character(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender",
-            "url")
+            "height",
+            emptyList(),
+            emptyList(),
+            "url"
+        )
 
         val viewEntity = CharacterViewEntity(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender")
+            "165",
+            "5' 4\"",
+            emptyList(),
+            emptyList()
+        )
         whenever(charactersInteractor.searchCharacters("name")).thenReturn(Single.just(listOf(character)))
 
         presenter.searchCharacters("name")
@@ -94,24 +91,21 @@ class CharacterListScreenPresenterImplTest {
     fun `Test fetchCharacters`() {
         val character = Character(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender",
-            "url")
+            "height",
+            emptyList(),
+            emptyList(),
+            "url"
+        )
 
         val viewEntity = CharacterViewEntity(
             "name",
-            "height",
-            "mass",
-            "hairColor",
-            "skinColor",
-            "eyeColor",
             "birthYear",
-            "gender")
+            "165",
+            "5' 4\"",
+            emptyList(),
+            emptyList()
+        )
         whenever(charactersInteractor.fetchCharacters(1)).thenReturn(Single.just(listOf(character)))
 
         presenter.fetchCharacterList()

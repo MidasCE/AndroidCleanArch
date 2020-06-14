@@ -31,12 +31,12 @@ class CharactersRepositoryImpl(private val starwarAPI: StarwarAPI) :
             response.toDomain()
         }
 
-    override fun getSpecies(url: String): Single<Specie> =
+    override fun getSpecie(url: String): Single<Specie> =
         starwarAPI.getSpecies(url).map { response ->
             response.toDomain()
         }
 
-    override fun getCharacterFilms(url: String): Single<Film> =
+    override fun getCharacterFilm(url: String): Single<Film> =
         starwarAPI.getCharacterFilms(url).map { response ->
             response.toDomain()
         }

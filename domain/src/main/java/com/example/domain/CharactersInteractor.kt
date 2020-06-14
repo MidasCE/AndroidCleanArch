@@ -14,7 +14,7 @@ interface CharactersInteractor {
 
     fun getHomeWorld(url: String): Single<HomeWorld>
 
-    fun getSpecies(url: String): Single<Specie>
+    fun getSpecie(url: String): Single<Specie>
 
     fun getCharacterFilm(url: String): Single<Film>
 

@@ -1,5 +1,6 @@
 package com.example.app.character.details.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.app.character.details.view.model.FilmViewEntity
 
 class CharacterFilmItemAdapter :
     RecyclerView.Adapter<CharacterFilmItemAdapter.ViewHolder>() {
+    lateinit var context: Context
 
     private var filmList: MutableList<FilmViewEntity> = mutableListOf()
 
@@ -19,6 +21,7 @@ class CharacterFilmItemAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
         val itemLayoutView = LayoutInflater.from(parent.context)
             .inflate(R.layout.film_item, null)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
@@ -47,7 +50,7 @@ class CharacterFilmItemAdapter :
         }
 
         private fun initView(viewEntity: FilmViewEntity) {
-            titleTextView.text = viewEntity.title
+            titleTextView.text = context.getString(R.string.character_movie_title, viewEntity.title)
             subTitleTextView.text = viewEntity.openingCrawl
         }
     }

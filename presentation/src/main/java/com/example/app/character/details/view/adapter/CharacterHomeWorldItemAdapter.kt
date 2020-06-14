@@ -1,5 +1,6 @@
 package com.example.app.character.details.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,6 +13,7 @@ import com.example.app.character.details.view.model.CharacterHomeWorldViewEntity
 
 class CharacterHomeWorldItemAdapter :
     RecyclerView.Adapter<CharacterHomeWorldItemAdapter.ViewHolder>() {
+    lateinit var context: Context
 
     private var homeWorldList: MutableList<CharacterHomeWorldViewEntity> = mutableListOf()
 
@@ -21,6 +23,7 @@ class CharacterHomeWorldItemAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
         val itemLayoutView = LayoutInflater.from(parent.context)
             .inflate(R.layout.homeworld_item, null)
         itemLayoutView.layoutParams = RecyclerView.LayoutParams(
@@ -53,14 +56,14 @@ class CharacterHomeWorldItemAdapter :
         }
 
         private fun initView(viewEntity: CharacterHomeWorldViewEntity) {
-            specieTitleTextView.text = viewEntity.specieName
-            languageTitleTextView.text = viewEntity.language
+            specieTitleTextView.text = context.getString(R.string.character_home_world_species_title, viewEntity.specieName)
+            languageTitleTextView.text = context.getString(R.string.character_home_world_language, viewEntity.language)
             homeWorldTitleTextView.visibility = viewEntity.homeWorldName?.let { homeWorldName ->
-                homeWorldTitleTextView.text = homeWorldName
+                homeWorldTitleTextView.text = context.getString(R.string.character_home_world_title, homeWorldName)
                 VISIBLE
             } ?: GONE
             populationTextView.visibility = viewEntity.homeWorldPopulation?.let { homeWorldPopulation ->
-                populationTextView.text = homeWorldPopulation
+                populationTextView.text = context.getString(R.string.character_home_world_population, homeWorldPopulation)
                 VISIBLE
             } ?: GONE
         }

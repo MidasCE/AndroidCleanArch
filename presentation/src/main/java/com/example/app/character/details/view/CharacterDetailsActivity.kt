@@ -34,6 +34,7 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     private lateinit var nameTextView: TextView
+    private lateinit var birthYearTextView: TextView
     private lateinit var heightTextView: TextView
     private lateinit var homeWorldrecyclerView: RecyclerView
     private lateinit var filmRecyclerView: RecyclerView
@@ -54,6 +55,7 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
 
     private fun initView(viewEntity: CharacterViewEntity) {
         nameTextView = findViewById(R.id.nameTextView)
+        birthYearTextView = findViewById(R.id.birthYearTextView)
         heightTextView = findViewById(R.id.heightTextView)
         homeWorldrecyclerView = findViewById(R.id.homeWorldRecyclerView)
 
@@ -72,7 +74,8 @@ class CharacterDetailsActivity: CharacterDetailsView, AppCompatActivity(), HasAn
     private fun updateCharacterDetail(entity: CharacterViewEntity) {
         entity.apply {
             nameTextView.text = title
-            heightTextView.text = height
+            heightTextView.text = getString(R.string.character_height, heightCm, heightInch)
+            birthYearTextView.text = getString(R.string.character_birth_year, birthYear)
         }
         presenter.updateCharacterDetails(entity)
     }
